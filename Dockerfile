@@ -1,9 +1,14 @@
-FROM openjdk
+# Use an OpenJDK base image with Java 11
+FROM openjdk:11-jre
 
-COPY ./target/demo-docker*.jar /usr/app/dockerDemo.jar
+# Set the working directory inside the container
+WORKDIR /app
 
-WORKDIR /usr/app
+# Add the Java application JAR file to the container
+ADD student-info-0.0.1-SNAPSHOT.jar /app/student-info-0.0.1-SNAPSHOT.jar
 
-EXPOSE 8080
+# Expose the port your Java application is listening on (the same port you use in your Java program)
+EXPOSE 8081
 
-ENTRYPOINT ["java","-jar","dockerDemo.jar"]
+# Command to run the Java application when the container starts
+CMD ["java", "-jar", "student-info-0.0.1-SNAPSHOT.jar"]
